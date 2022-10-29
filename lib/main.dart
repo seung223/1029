@@ -35,26 +35,43 @@ class _MyHomePageState extends State<MyHomePage> {
   TextEditingController textEditingController = new TextEditingController();
   var val = true;
   @override
+  void _openPopup(){
+    showDialog(
+        context: context,
+        builder: (BuildContext context){
+        return AlertDialog(
+          title: Text("다이얼로그"),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: [
+                Text('Alert Dialog'),
+                Text('ok 를 눌러 닫습니다'),
+              ],
+            )
+          ),
+          actions: [
+            TextButton(
+              onPressed: (){
+              Navigator.of(context).pop();
+            }, child: Text('ok')),
+            TextButton(
+              onPressed: (){
+                Navigator.of(context).pop();
+              }, child: Text('cancel'),
+            ),
+          ],
+        );
+      }
+    );
+  }
   Widget build(BuildContext context) {
     return Scaffold(
       appBar : AppBar(
         title : Text('프로젝트')),
         body: Center(
-          child: DropdownButton(
-            value: _selectedValue,
-            items: _valueList.map(
-                (value){
-                  return DropdownMenuItem(
-                    value : value,
-                    child : Text(value),
-                  );
-                },
-            ).toList(),
-            onChanged: (value){
-              setState(() {
-                _selectedValue = value!;
-              });
-            },
+          child: TextButton(
+            onPressed: _openPopup,
+            child: Text('다이얼로그 열기'),
           )
         )
     );
