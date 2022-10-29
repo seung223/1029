@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-
+final _valueList = ['첫 번째', '두 번째', '세 번째'];
+var _selectedValue = '첫 번째';
 void main() {
   runApp(const MyApp());
 }
@@ -38,25 +39,24 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar : AppBar(
         title : Text('프로젝트')),
-        body: Column(
-          children : [
-            Checkbox(
-            value: val,
-            onChanged:(value){
+        body: Center(
+          child: DropdownButton(
+            value: _selectedValue,
+            items: _valueList.map(
+                (value){
+                  return DropdownMenuItem(
+                    value : value,
+                    child : Text(value),
+                  );
+                },
+            ).toList(),
+            onChanged: (value){
               setState(() {
-                val = value!;
+                _selectedValue = value!;
               });
-            }
-            ),
-            Switch(
-            value: val,
-            onChanged:(value){
-              setState(() {
-                val = value!;
-              });
-            }),
-    ],
-    ));
-
+            },
+          )
+        )
+    );
   }
 }
